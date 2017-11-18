@@ -29,11 +29,16 @@ const BurgerWrapper = styled.div`
 `;
 
 const burger = props => {
+  const transformedIngredients = Object.keys(props.ingredients).map(igKey => {
+    return [...Array(props.ingredients[igKey])].map((_, i) => {
+      return <BurgerIngredient key={igKey + i} type={igKey} />;
+    });
+  });
+
   return (
     <BurgerWrapper>
       <BurgerIngredient type="bread-top" />
-      <BurgerIngredient type="cheese" />
-      <BurgerIngredient type="meat" />
+      {transformedIngredients}
       <BurgerIngredient type="bread-bottom" />
     </BurgerWrapper>
   );
