@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Logo from '../../Logo/Logo'
+import Logo from '../../Logo/Logo';
+import NavigationItems from '../NavigationItems/NavigationItems';
 
 const Toolbar = styled.header`
   height: 56px;
@@ -22,7 +23,9 @@ const toolbar = props => (
   <Toolbar>
     <div>MENU</div>
     <Logo />
-    <nav style={{ height: '100%' }}>...</nav>
+    <nav style={{ height: '100%' }}>
+      <NavigationItems />
+    </nav>
   </Toolbar>
 );
 
