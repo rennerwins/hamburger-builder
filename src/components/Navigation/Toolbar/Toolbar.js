@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
+import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle'
 
 const Toolbar = styled.header`
   height: 56px;
@@ -29,7 +30,7 @@ const NavWrapper = styled.nav`
 
 const toolbar = props => (
   <Toolbar>
-    <div>MENU</div>
+    <DrawerToggle clicked={props.drawerToggleClicked} />
     <div style={{ height: '80%' }}>
       <Logo />
     </div>
