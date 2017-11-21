@@ -1,14 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import Wrapper from '../../hoc/Wrapper';
-
-const MainContent = styled.main`margin-top: 16px;`;
+import Toolbar from '../Navigation/Toolbar/Toolbar';
 
 const layout = ({ children }) => (
   <Wrapper>
-    <div>Toolbar, SideDrawer, Backdrop</div>
-    <MainContent>{children}</MainContent>
+    <Toolbar />
+    <main style={{ marginTop: '72px' }}>{children}</main>
   </Wrapper>
 );
 
