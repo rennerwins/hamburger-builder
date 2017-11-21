@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Wrapper from '../../../hoc/Wrapper';
 import Backdrop from '../Backdrop/Backdrop';
 
-const Modal = styled.div`
+const ModalWrapper = styled.div`
   position: fixed;
   z-index: 500;
   background-color: white;
@@ -25,11 +25,19 @@ const Modal = styled.div`
   }
 `;
 
-const modal = props => (
-  <Wrapper>
-    <Backdrop show={props.show} clicked={props.modalClosed} />
-    <Modal show={props.show}>{props.children}</Modal>
-  </Wrapper>
-);
+class Modal extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.show !== this.props.show;
+  }
 
-export default modal;
+  render() {
+    return (
+      <Wrapper>
+        <Backdrop show={this.props.show} clicked={this.props.modalClosed} />
+        <ModalWrapper show={this.props.show}>{this.props.children}</ModalWrapper>
+      </Wrapper>
+    );
+  }
+}
+
+export default Modal;
