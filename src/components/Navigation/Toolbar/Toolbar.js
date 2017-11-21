@@ -19,15 +19,23 @@ const Toolbar = styled.header`
   z-index: 90;
 `;
 
+const NavWrapper = styled.nav`
+  height: 100%;
+
+  @media (max-width: 499px) {
+    display: none;
+  }
+`;
+
 const toolbar = props => (
   <Toolbar>
     <div>MENU</div>
     <div style={{ height: '80%' }}>
       <Logo />
     </div>
-    <nav style={{ height: '100%' }}>
+    <NavWrapper>
       <NavigationItems />
-    </nav>
+    </NavWrapper>
   </Toolbar>
 );
 

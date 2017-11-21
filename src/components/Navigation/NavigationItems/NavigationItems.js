@@ -10,6 +10,11 @@ const NavigationItems = styled.ul`
   display: flex;
   align-items: center;
   height: 100%;
+  flex-flow: column;
+
+  @media (min-width: 500px) {
+    flex-flow: row;
+  }
 `;
 
 const navigationItems = () => (

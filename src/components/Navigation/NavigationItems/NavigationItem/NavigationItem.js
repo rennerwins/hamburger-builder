@@ -2,28 +2,44 @@ import React from 'react';
 import styled from 'styled-components';
 
 const NavigationItem = styled.li`
-  margin: 0;
+  margin: 10px 0;
   box-sizing: border-box;
-  display: flex;
-  height: 100%;
-  align-items: center;
+  display: block;
+  width: 100%;
+
+  @media (min-width: 500px) {
+    margin: 0;
+    display: flex;
+    height: 100%;
+    width: auto;
+    align-items: center;
+  }
 `;
 
 const Link = styled.a`
-  color: white;
+  color: ${props => (props.active ? '#40a4c8' : '#8f5c2c')};
   text-decoration: none;
-  height: 100%;
-  padding: 16px 10px;
-  border-bottom: 4px solid ${props => (props.active ? '#40a4c8' : 'transparent')};
+  width: 100%;
   box-sizing: border-box;
   display: block;
-  background: ${props => props.active && '#8f5c2c'};
 
   &:hover,
   &:active {
-    background-color: #8f5c2c;
-    border-bottom: 4px solid #40a4c8;
+    color: #40a4c8;
+  }
+
+  @media (min-width: 500px) {
     color: white;
+    height: 100%;
+    padding: 16px 10px;
+    border-bottom: 4px solid ${props => (props.active ? '#40a4c8' : 'transpalent')};
+
+    &:hover,
+    &:active {
+      background-color: #8f5c2c;
+      border-bottom: 4px solid #40a4c8;
+      color: white;
+    }
   }
 `;
 
