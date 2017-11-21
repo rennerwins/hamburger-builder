@@ -6,7 +6,7 @@ const styles = {
   container: {
     backgroundColor: 'white',
     padding: '8px',
-    height: '80%',
+    height: '100%',
     boxSizing: 'border-box',
     borderRadius: '5px'
   },

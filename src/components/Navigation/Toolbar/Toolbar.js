@@ -22,7 +22,9 @@ const Toolbar = styled.header`
 const toolbar = props => (
   <Toolbar>
     <div>MENU</div>
-    <Logo />
+    <div style={{ height: '80%' }}>
+      <Logo />
+    </div>
     <nav style={{ height: '100%' }}>
       <NavigationItems />
     </nav>

@@ -25,7 +25,10 @@ const SideDrawer = styled.div`
 const sideDrawer = props => {
   return (
     <SideDrawer>
-      <Logo />
+      <div style={{ height: '11%' }}>
+        <Logo />
+      </div>
+
       <nav>
         <NavigationItems />
       </nav>
