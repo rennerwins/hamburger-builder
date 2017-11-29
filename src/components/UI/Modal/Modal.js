@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from 'react'
+import styled from 'styled-components'
 
-import Wrapper from '../../../hoc/Wrapper/Wrapper';
-import Backdrop from '../Backdrop/Backdrop';
+import Wrapper from '../../../hoc/Wrapper/Wrapper'
+import Backdrop from '../Backdrop/Backdrop'
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -23,11 +23,11 @@ const ModalWrapper = styled.div`
     width: 500px;
     left: calc(50% - 250px);
   }
-`;
+`
 
 class Modal extends Component {
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.show !== this.props.show;
+    return nextProps.show !== this.props.show || nextProps.children !== this.props.children
   }
 
   render() {
@@ -36,8 +36,8 @@ class Modal extends Component {
         <Backdrop show={this.props.show} clicked={this.props.modalClosed} />
         <ModalWrapper show={this.props.show}>{this.props.children}</ModalWrapper>
       </Wrapper>
-    );
+    )
   }
 }
 
-export default Modal;
+export default Modal
