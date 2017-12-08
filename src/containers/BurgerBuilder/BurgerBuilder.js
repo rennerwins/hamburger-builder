@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-import Wrapper from '../../hoc/Wrapper/Wrapper';
-import Burger from '../../components/Burger/Burger';
+import axios from '../../axios-orders';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Burger from '../../components/Burger/Burger';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import axios from '../../axios-orders';
+import Wrapper from '../../hoc/Wrapper/Wrapper';
 
 const INGREDIENT_PRICES = {
   salad: 0.5,
@@ -118,7 +118,17 @@ class BurgerBuilder extends Component {
     // } catch (err) {
     //   await this.setState(() => ({ loading: false, purchasing: false }))
     // }
-    this.props.history.push('/checkout');
+    const { ingredients } = this.state;
+    const queryParams = [];
+    for (let i in ingredients) {
+      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(ingredients[i]));
+    }
+    const queryString = queryParams.join('&');
+
+    this.props.history.push({
+      pathname: '/checkout',
+      search: '?' + queryString
+    });
   };
 
   render() {
