@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+import axios from '../../../axios-orders';
 import Button from '../../../components/UI/Button/Button';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 
 const ContactDataWrapper = styled.div`
   margin: 20px auto;
@@ -24,20 +26,60 @@ class ContactData extends Component {
     address: {
       street: '',
       postalCode: ''
+    },
+    loading: false
+  };
+
+  orderHandler = async e => {
+    e.preventDefault();
+    const { ingredients, price } = this.props;
+
+    this.setState(() => ({ loading: true }));
+    const order = {
+      ingredients,
+      price,
+      customer: {
+        name: 'Win Eiwwongcharoen',
+        address: {
+          street: 'Test 1',
+          zipCode: '12345',
+          country: 'USA'
+        },
+        email: 'test@test.com'
+      },
+      deliveryMethod: 'fastest'
+    };
+    try {
+      await axios.post('/orders.json', order);
+      await this.setState(() => ({ loading: false }));
+      await this.props.history.push('/');
+    } catch (err) {
+      await this.setState(() => ({ loading: false }));
     }
   };
 
   render() {
+    const { loading } = this.state;
+
+    let form = (
+      <form>
+        <input style={{ display: 'block' }} type="text" name="name" placeholder="Your Name" />
+        <input style={{ display: 'block' }} type="email" name="email" placeholder="Your Email" />
+        <input style={{ display: 'block' }} type="text" name="street" placeholder="Street" />
+        <input style={{ display: 'block' }} type="text" name="postal" placeholder="Postal Code" />
+        <Button btnType="Success" clicked={this.orderHandler}>
+          ORDER
+        </Button>
+      </form>
+    );
+
+    if (loading) {
+      form = <Spinner />;
+    }
     return (
       <ContactDataWrapper>
         <h4>Enter your Contact Data</h4>
-        <form>
-          <input style={{ display: 'block' }} type="text" name="name" placeholder="Your Name" />
-          <input style={{ display: 'block' }} type="email" name="email" placeholder="Your Email" />
-          <input style={{ display: 'block' }} type="text" name="street" placeholder="Street" />
-          <input style={{ display: 'block' }} type="text" name="postal" placeholder="Postal Code" />
-          <Button btnType="Success">ORDER</Button>
-        </form>
+        {form}
       </ContactDataWrapper>
     );
   }
