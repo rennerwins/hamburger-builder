@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 const NavigationItem = styled.li`
   margin: 10px 0;
@@ -16,7 +17,7 @@ const NavigationItem = styled.li`
   }
 `;
 
-const Link = styled.a`
+const Link = styled(NavLink)`
   color: ${props => (props.active ? '#40a4c8' : '#8f5c2c')};
   text-decoration: none;
   width: 100%;
@@ -45,7 +46,7 @@ const Link = styled.a`
 
 const navigationItem = props => (
   <NavigationItem>
-    <Link href={props.link} active={props.active}>
+    <Link to={props.link} exact={props.exact} active={props.active}>
       {props.children}
     </Link>
   </NavigationItem>
