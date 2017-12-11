@@ -15,8 +15,8 @@ const Label = styled.label`
 
 const Input = styled.input`
   outline: none;
-  border: 1px solid #ccc;
-  background-color: white;
+  border: ${props => (!props.invalid ? '1px solid #ccc' : '1px solid red')};
+  background-color: ${props => (!props.invalid ? 'white' : '#fda49a')};
   font: inherit;
   padding: 6px 10px;
   display: block;
@@ -34,23 +34,37 @@ const Select = Input.withComponent('select');
 
 const input = props => {
   let inputElement = null;
+  let invalid = false;
+  if (props.invalid && props.shouldValidate) {
+    invalid = true;
+  }
 
   switch (props.elementType) {
     case 'input':
       inputElement = (
-        <Input {...props.elementConfig} value={props.value} onChange={props.changed} />
+        <Input
+          invalid={invalid}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
       );
       break;
 
     case 'textarea':
       inputElement = (
-        <TextArea {...props.elementConfig} value={props.value} onChange={props.changed} />
+        <TextArea
+          invalid={invalid}
+          {...props.elementConfig}
+          value={props.value}
+          onChange={props.changed}
+        />
       );
       break;
 
     case 'select':
       inputElement = (
-        <Select value={props.value} onChange={props.changed}>
+        <Select invalid={invalid} value={props.value} onChange={props.changed}>
           {props.elementConfig.options.map(option => (
             <option key={option.value} value={option.value}>
               {option.displayValue}
