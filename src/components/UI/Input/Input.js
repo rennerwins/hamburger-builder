@@ -29,7 +29,8 @@ const Input = styled.input`
   }
 `;
 
-const TextArea = Input.extend``;
+const TextArea = Input.withComponent('textarea');
+const Select = Input.withComponent('select');
 
 const input = props => {
   let inputElement = null;
@@ -41,6 +42,18 @@ const input = props => {
 
     case 'textarea':
       inputElement = <TextArea {...props.elementConfig} value={props.value} />;
+      break;
+
+    case 'select':
+      inputElement = (
+        <Select value={props.value}>
+          {props.elementConfig.options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.displayValue}
+            </option>
+          ))}
+        </Select>
+      );
       break;
 
     default:
