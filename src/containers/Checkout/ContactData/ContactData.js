@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import axios from '../../../axios-orders';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Input from '../../../components/UI/Input/Input';
 
 const ContactDataWrapper = styled.div`
   margin: 20px auto;
@@ -63,10 +64,10 @@ class ContactData extends Component {
 
     let form = (
       <form>
-        <input style={{ display: 'block' }} type="text" name="name" placeholder="Your Name" />
-        <input style={{ display: 'block' }} type="email" name="email" placeholder="Your Email" />
-        <input style={{ display: 'block' }} type="text" name="street" placeholder="Street" />
-        <input style={{ display: 'block' }} type="text" name="postal" placeholder="Postal Code" />
+        <Input inputType="input" type="text" name="name" placeholder="Your Name" />
+        <Input inputType="input" type="email" name="email" placeholder="Your Email" />
+        <Input inputType="input" type="text" name="street" placeholder="Street" />
+        <Input inputType="input" type="text" name="postal" placeholder="Postal Code" />
         <Button btnType="Success" clicked={this.orderHandler}>
           ORDER
         </Button>
@@ -76,6 +77,7 @@ class ContactData extends Component {
     if (loading) {
       form = <Spinner />;
     }
+
     return (
       <ContactDataWrapper>
         <h4>Enter your Contact Data</h4>
