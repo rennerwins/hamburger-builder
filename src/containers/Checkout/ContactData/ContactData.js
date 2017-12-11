@@ -79,12 +79,22 @@ class ContactData extends Component {
 
   orderHandler = async e => {
     e.preventDefault();
+    const { orderForm } = this.state;
     const { ingredients, price } = this.props;
+
+    const formData = {};
+
+    for (let formElementIdentifier in orderForm) {
+      formData[formElementIdentifier] = orderForm[formElementIdentifier].value;
+    }
 
     const order = {
       ingredients,
-      price
+      price,
+      orderData: formData
     };
+
+    console.log(formData);
 
     this.setState(() => ({ loading: true }));
 
@@ -99,6 +109,8 @@ class ContactData extends Component {
 
   inputChangedHandler = (e, inputIdentifier) => {
     const { value } = e.target;
+
+    console.log(value, inputIdentifier);
 
     this.setState(({ orderForm }) => ({
       orderForm: {
@@ -123,7 +135,7 @@ class ContactData extends Component {
     }
 
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         {formElementsArray.map(formElement => (
           <Input
             key={formElement.id}
@@ -133,9 +145,7 @@ class ContactData extends Component {
             changed={e => this.inputChangedHandler(e, formElement.id)}
           />
         ))}
-        <Button btnType="Success" clicked={this.orderHandler}>
-          ORDER
-        </Button>
+        <Button btnType="Success">ORDER</Button>
       </form>
     );
 
