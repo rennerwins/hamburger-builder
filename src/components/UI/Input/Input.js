@@ -51,9 +51,6 @@ const input = props => {
     case 'select':
       inputElement = (
         <Select value={props.value} onChange={props.changed}>
-          <option value="" selected disabled>
-            Delivery Method
-          </option>
           {props.elementConfig.options.map(option => (
             <option key={option.value} value={option.value}>
               {option.displayValue}
