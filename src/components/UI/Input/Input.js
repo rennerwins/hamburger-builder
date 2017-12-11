@@ -35,7 +35,8 @@ const Select = Input.withComponent('select');
 const input = props => {
   let inputElement = null;
   let invalid = false;
-  if (props.invalid && props.shouldValidate) {
+
+  if (props.invalid && props.shouldValidate && props.touched) {
     invalid = true;
   }
 
