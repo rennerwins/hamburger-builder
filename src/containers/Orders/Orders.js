@@ -12,12 +12,13 @@ class Orders extends Component {
 
   componentDidMount = async () => {
     try {
-      const { data } = await axios.get('/orders.json');
       const fetchedOrders = [];
+      const { data } = await axios.get('/orders.json');
+
       for (let key in data) {
         fetchedOrders.push({ ...data[key], id: key });
       }
-      console.log(fetchedOrders);
+
       await this.setState(() => ({ loading: false, orders: fetchedOrders }));
     } catch (err) {
       this.setState(() => ({ loading: false }));
@@ -26,6 +27,7 @@ class Orders extends Component {
 
   render() {
     const { orders } = this.state;
+
     return (
       <div>
         {orders.map(order => (
