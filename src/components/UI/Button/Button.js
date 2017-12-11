@@ -17,10 +17,15 @@ const Button = styled.button`
     margin-left: 0;
     padding-left: 0;
   }
+
+  &:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
 `;
 
 const button = props => (
-  <Button btnType={props.btnType} onClick={props.clicked}>
+  <Button disabled={props.disabled} btnType={props.btnType} onClick={props.clicked}>
     {props.children}
   </Button>
 );

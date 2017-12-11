@@ -98,27 +98,28 @@ class ContactData extends Component {
             { value: 'cheapest', displayValue: 'Cheapest' }
           ]
         },
-        value: 'fastest'
+        value: 'fastest',
+        validation: {},
+        valid: true
       }
     },
+    formIsValid: false,
     loading: false
   };
 
   checkValidity = (value, rules) => {
     let isValid = true;
 
-    if (rules) {
-      if (rules.required) {
-        isValid = value.trim() !== '' && isValid;
-      }
+    if (rules.required) {
+      isValid = value.trim() !== '' && isValid;
+    }
 
-      if (rules.minLength) {
-        isValid = value.length >= rules.minLength && isValid;
-      }
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
 
-      if (rules.maxLength) {
-        isValid = value.length <= rules.maxLength && isValid;
-      }
+    if (rules.maxLength) {
+      isValid = value.length <= rules.maxLength && isValid;
     }
 
     return isValid;
@@ -154,6 +155,13 @@ class ContactData extends Component {
 
   inputChangedHandler = (e, inputIdentifier) => {
     const { value } = e.target;
+    const { orderForm } = this.state;
+
+    let formIsValid = true;
+
+    for (let inputIdentifiers in orderForm) {
+      formIsValid = orderForm[inputIdentifier].valid && formIsValid;
+    }
 
     this.setState(({ orderForm }) => ({
       orderForm: {
@@ -166,10 +174,12 @@ class ContactData extends Component {
         }
       }
     }));
+
+    this.setState({ formIsValid });
   };
 
   render() {
-    const { loading, orderForm } = this.state;
+    const { loading, orderForm, formIsValid } = this.state;
     const formElementsArray = [];
 
     for (let key in orderForm) {
@@ -193,7 +203,9 @@ class ContactData extends Component {
             changed={e => this.inputChangedHandler(e, formElement.id)}
           />
         ))}
-        <Button btnType="Success">ORDER</Button>
+        <Button btnType="Success" disabled={!formIsValid}>
+          ORDER
+        </Button>
       </form>
     );
 
