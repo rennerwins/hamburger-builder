@@ -113,7 +113,7 @@ class BurgerBuilder extends Component {
   };
 
   render() {
-    const { ingredients, error, totalPrice, purchasable, loading } = this.state;
+    const { ingredients, error, totalPrice, purchasable, loading, purchasing } = this.state;
     const disabledInfo = { ...ingredients };
     let orderSummary = null;
 
