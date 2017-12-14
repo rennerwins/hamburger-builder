@@ -18,21 +18,19 @@ const INGREDIENT_PRICES = {
 
 class BurgerBuilder extends Component {
   state = {
-    ingredients: null,
-    totalPrice: 4,
     purchasable: false,
     purchasing: false,
     loading: false
   };
 
-  componentDidMount = async () => {
-    try {
-      const { data } = await axios.get(`/ingredients.json`);
-      await this.setState(() => ({ ingredients: data }));
-    } catch (err) {
-      this.setState(() => ({ error: true }));
-    }
-  };
+  // componentDidMount = async () => {
+  //   try {
+  //     const { data } = await axios.get(`/ingredients.json`);
+  //     await this.setState(() => ({ ingredients: data }));
+  //   } catch (err) {
+  //     this.setState(() => ({ error: true }));
+  //   }
+  // };
 
   updatePurchaseState = ingredients => {
     const sum = Object.keys(ingredients)
