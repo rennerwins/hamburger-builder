@@ -13,28 +13,16 @@ import * as actionTypes from '../../store/actions';
 
 class BurgerBuilder extends Component {
   state = {
-    purchasable: false,
     purchasing: false,
     loading: false
   };
-
-  // componentDidMount = async () => {
-  //   try {
-  //     const { data } = await axios.get(`/ingredients.json`);
-  //     await this.setState(() => ({ ingredients: data }));
-  //   } catch (err) {
-  //     this.setState(() => ({ error: true }));
-  //   }
-  // };
 
   updatePurchaseState = ingredients => {
     const sum = Object.keys(ingredients)
       .map(igKey => ingredients[igKey])
       .reduce((sum, el) => sum + el, 0);
 
-    this.setState(() => ({
-      purchasable: sum > 0
-    }));
+    return sum > 0;
   };
 
   purchaseHandler = () => {
@@ -81,7 +69,7 @@ class BurgerBuilder extends Component {
             ingredientRemoved={this.props.onIngredientRemoved}
             disabled={disabledInfo}
             price={totalPrice}
-            purchasable={purchasable}
+            purchasable={this.updatePurchaseState(ingredients)}
             ordered={this.purchaseHandler}
           />
         </Wrapper>
