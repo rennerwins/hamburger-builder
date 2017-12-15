@@ -17,7 +17,6 @@ class Checkout extends Component {
   render() {
     const { path } = this.props.match;
     const { ingredients } = this.props;
-    // console.log(this.)
 
     return (
       <div>
