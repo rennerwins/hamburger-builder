@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import React, { Component } from 'react';
 
+import * as actionTypes from '../../store/actions';
 import axios from '../../axios-orders';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Burger from '../../components/Burger/Burger';
@@ -9,12 +10,12 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Wrapper from '../../hoc/Wrapper/Wrapper';
-import * as actionTypes from '../../store/actions';
 
 class BurgerBuilder extends Component {
   state = {
     purchasing: false,
-    loading: false
+    loading: false,
+    error: false
   };
 
   updatePurchaseState = ingredients => {
@@ -34,22 +35,11 @@ class BurgerBuilder extends Component {
   };
 
   purchaseContinueHandler = () => {
-    const { ingredients, totalPrice } = this.props;
-    const queryParams = [];
-    for (let i in ingredients) {
-      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(ingredients[i]));
-    }
-    queryParams.push(`price=${totalPrice}`);
-    const queryString = queryParams.join('&');
-
-    this.props.history.push({
-      pathname: '/checkout',
-      search: '?' + queryString
-    });
+    this.props.history.push('/checkout');
   };
 
   render() {
-    const { error, purchasable, loading, purchasing } = this.state;
+    const { error, loading, purchasing } = this.state;
     const { ingredients, totalPrice } = this.props;
     const disabledInfo = { ...ingredients };
     let orderSummary = null;
