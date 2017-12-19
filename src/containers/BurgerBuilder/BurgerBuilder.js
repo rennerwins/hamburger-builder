@@ -13,9 +13,7 @@ import Wrapper from '../../hoc/Wrapper/Wrapper';
 
 class BurgerBuilder extends Component {
   state = {
-    purchasing: false,
-    loading: false,
-    error: false
+    purchasing: false
   };
 
   updatePurchaseState = ingredients => {
@@ -74,11 +72,6 @@ class BurgerBuilder extends Component {
         />
       );
     }
-
-    if (loading) {
-      orderSummary = <Spinner />;
-    }
-
     return (
       <Wrapper>
         <Modal show={purchasing} modalClosed={this.purchaseCancelHandler}>
