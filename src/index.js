@@ -5,7 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import App from './App';
-import reducer from './store/reducer';
+import reducer from './store/reducers/burgerBuilder';
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
