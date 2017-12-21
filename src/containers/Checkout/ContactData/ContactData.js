@@ -6,6 +6,8 @@ import axios from '../../../axios-orders';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions/index';
 
 const ContactDataWrapper = styled.div`
   margin: 20px auto;
@@ -143,7 +145,9 @@ class ContactData extends Component {
       orderData: formData
     };
 
-    this.setState(() => ({ loading: true }));
+    this.props.onOrderBurger(order);
+
+    // this.setState(() => ({ loading: true }));
   };
 
   inputChangedHandler = (e, inputIdentifier) => {
@@ -222,4 +226,8 @@ const mapStateToProps = ({ ingredients, totalPrice }) => {
   };
 };
 
-export default connect(mapStateToProps, null)(ContactData);
+const mapDispatchToProps = dispatch => {
+  onOrderBurger: orderData => dispatch(actions.purchaseBurgerStart(orderData));
+};
+
+export default connect(mapStateToProps, null)(withErrorHandler(ContactData, axios));
