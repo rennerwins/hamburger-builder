@@ -153,7 +153,7 @@ class ContactData extends Component {
 
     let formIsValid = true;
 
-    for (let inputIdentifiers in orderForm) {
+    for (let inputIdentifier in orderForm) {
       formIsValid = orderForm[inputIdentifier].valid && formIsValid;
     }
 
@@ -217,7 +217,10 @@ class ContactData extends Component {
   }
 }
 
-const mapStateToProps = ({ ingredients, totalPrice, loading }) => {
+const mapStateToProps = ({ burgerBuilder, order }) => {
+  const { ingredients, totalPrice } = burgerBuilder;
+  const { loading } = order;
+
   return {
     ingredients,
     totalPrice,

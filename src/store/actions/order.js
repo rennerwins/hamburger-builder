@@ -26,7 +26,7 @@ export const purchaseBurger = orderData => async dispatch => {
   dispatch(purchaseBurgerStart());
   try {
     const { data } = await axios.post('/orders.json', orderData);
-    await dispatch(purchaseBurgerSuccess(data, orderData));
+    await dispatch(purchaseBurgerSuccess(data.name, orderData));
   } catch (err) {
     dispatch(purchaseBurgerFail(err));
   }

@@ -41,7 +41,7 @@ class BurgerBuilder extends Component {
   };
 
   render() {
-    const { loading, purchasing } = this.state;
+    const { purchasing } = this.state;
     const { ingredients, totalPrice, error } = this.props;
     const disabledInfo = { ...ingredients };
     let orderSummary = null;
@@ -87,7 +87,8 @@ class BurgerBuilder extends Component {
   }
 }
 
-const mapStateToProps = ({ ingredients, totalPrice, error }) => {
+const mapStateToProps = ({ burgerBuilder }) => {
+  const { ingredients, totalPrice, error } = burgerBuilder;
   return {
     ingredients,
     totalPrice,
