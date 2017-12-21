@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -18,16 +18,23 @@ class Checkout extends Component {
     const { path } = this.props.match;
     const { ingredients } = this.props;
 
-    return (
-      <div>
-        <CheckoutSummary
-          ingredients={ingredients}
-          checkoutCancelled={this.checkoutCancelledHandler}
-          checkoutContinued={this.checkoutContinuedHandler}
-        />
-        <Route path={`${path}/contact-data`} component={ContactData} />
-      </div>
-    );
+    let summary = <Redirect to="/" />;
+
+    if (ingredients) {
+      summary = (
+        <div>
+          <CheckoutSummary
+            ingredients={ingredients}
+            checkoutCancelled={this.checkoutCancelledHandler}
+            checkoutContinued={this.checkoutContinuedHandler}
+          />
+
+          <Route path={`${path}/contact-data`} component={ContactData} />
+        </div>
+      );
+    }
+
+    return summary;
   }
 }
 
