@@ -144,14 +144,6 @@ class ContactData extends Component {
     };
 
     this.setState(() => ({ loading: true }));
-
-    try {
-      await axios.post('/orders.json', order);
-      await this.setState(() => ({ loading: false }));
-      await this.props.history.push('/');
-    } catch (err) {
-      await this.setState(() => ({ loading: false }));
-    }
   };
 
   inputChangedHandler = (e, inputIdentifier) => {
