@@ -31,3 +31,9 @@ export const purchaseBurger = orderData => async dispatch => {
     dispatch(purchaseBurgerFail(err));
   }
 };
+
+export const purchaseInit = () => {
+  return {
+    type: actionTypes.PURCHASE_INIT
+  };
+};
