@@ -45,6 +45,6 @@ export const auth = (email, password, isSignup) => async dispatch => {
     const { idToken, localId } = await data;
     await dispatch(authSuccess(idToken, localId));
   } catch (err) {
-    dispatch(authFail());
+    dispatch(authFail(err.response.data.error));
   }
 };

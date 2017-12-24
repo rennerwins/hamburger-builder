@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import * as actions from '../../store/actions/index';
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const AuthWrapper = styled.div`
   margin: 20px auto;
@@ -75,7 +76,6 @@ class Auth extends Component {
 
   inputChangedHandler = (e, controlName) => {
     const { value } = e.target;
-    const { controls } = this.state;
 
     this.setState(({ controls }) => ({
       controls: {
@@ -104,6 +104,7 @@ class Auth extends Component {
 
   render() {
     const { controls, isSignup } = this.state;
+    const { loading, error } = this.props;
     const formElementsArray = [];
 
     for (let key in controls) {
@@ -113,7 +114,7 @@ class Auth extends Component {
       });
     }
 
-    const form = formElementsArray.map(formElement => (
+    let form = formElementsArray.map(formElement => (
       <Input
         key={formElement.id}
         elementType={formElement.config.elementType}
@@ -126,8 +127,19 @@ class Auth extends Component {
       />
     ));
 
+    if (loading) {
+      form = <Spinner />;
+    }
+
+    let errorMessage = null;
+
+    if (error) {
+      errorMessage = <p>{error.message}</p>;
+    }
+
     return (
       <AuthWrapper>
+        {errorMessage}
         <form onSubmit={this.submitHandler}>
           {form}
           <Button btnType="Success">SUBMIT</Button>
@@ -140,10 +152,18 @@ class Auth extends Component {
   }
 }
 
+const mapStateToProps = ({ auth }) => {
+  const { loading, error } = auth;
+  return {
+    loading,
+    error
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup))
   };
 };
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
