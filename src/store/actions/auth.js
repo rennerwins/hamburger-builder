@@ -8,10 +8,11 @@ export const authStart = () => {
   };
 };
 
-export const authSuccess = authData => {
+export const authSuccess = (idToken, userId) => {
   return {
     type: actionTypes.AUTH_SUCCESS,
-    authData
+    idToken,
+    userId
   };
 };
 
@@ -30,17 +31,19 @@ export const auth = (email, password, isSignup) => async dispatch => {
     returnSecureToken: true
   };
 
-  let url =
-    'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyBP7e1Es72xV0ODSIshGgsv6W2zz99Bies';
+  const authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty';
+  const firebaseKey = 'AIzaSyBP7e1Es72xV0ODSIshGgsv6W2zz99Bies';
+
+  let url = `${authUrl}/signupNewUser?key=${firebaseKey}`;
 
   if (!isSignup) {
-    url =
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyBP7e1Es72xV0ODSIshGgsv6W2zz99Bies';
+    url = `${authUrl}/verifyPassword?key=${firebaseKey}`;
   }
 
   try {
     const { data } = await axios.post(url, authData);
-    await dispatch(authSuccess(data));
+    const { idToken, localId } = await data;
+    await dispatch(authSuccess(idToken, localId));
   } catch (err) {
     dispatch(authFail());
   }
