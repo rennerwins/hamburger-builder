@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 import Button from '../../components/UI/Button/Button';
 import Input from '../../components/UI/Input/Input';
+import * as actions from '../../store/actions/index';
 
 const AuthWrapper = styled.div`
   margin: 20px auto;
@@ -18,7 +20,7 @@ const AuthWrapper = styled.div`
   }
 `;
 
-export default class Auth extends Component {
+class Auth extends Component {
   state = {
     controls: {
       email: {
@@ -87,6 +89,12 @@ export default class Auth extends Component {
     }));
   };
 
+  submitHandler = event => {
+    const { email, password } = this.state.controls;
+    event.preventDefault();
+    this.props.onAuth(email.value, password.value);
+  };
+
   render() {
     const { controls } = this.state;
     const formElementsArray = [];
@@ -100,6 +108,7 @@ export default class Auth extends Component {
 
     const form = formElementsArray.map(formElement => (
       <Input
+        key={formElement.id}
         elementType={formElement.config.elementType}
         elementConfig={formElement.config.elementConfig}
         value={formElement.config.value}
@@ -112,7 +121,7 @@ export default class Auth extends Component {
 
     return (
       <AuthWrapper>
-        <form>
+        <form onSubmit={this.submitHandler}>
           {form}
           <Button btnType="Success">SUBMIT</Button>
         </form>
@@ -120,3 +129,11 @@ export default class Auth extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAuth: (email, password) => dispatch(actions.auth(email, password))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Auth);
