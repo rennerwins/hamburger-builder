@@ -4,12 +4,12 @@ import React, { Component } from 'react';
 import * as actions from '../../store/actions/index';
 import axios from '../../axios-orders';
 import Order from '../../components/Order/Order';
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 class Orders extends Component {
   componentDidMount = () => {
-    this.props.onFetchOrders();
+    this.props.onFetchOrders(this.props.token);
   };
 
   render() {
@@ -26,16 +26,19 @@ class Orders extends Component {
   }
 }
 
-const mapStateToProps = ({ order }) => {
-  const { orders } = order;
+const mapStateToProps = ({ order, auth }) => {
+  const { orders, loading } = order;
+  const { token } = auth;
   return {
-    orders
+    orders,
+    loading,
+    token
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchOrders: () => dispatch(actions.fetchOrders())
+    onFetchOrders: token => dispatch(actions.fetchOrders(token))
   };
 };
 
