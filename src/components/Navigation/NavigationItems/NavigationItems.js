@@ -17,13 +17,17 @@ const NavigationItems = styled.ul`
   }
 `;
 
-const navigationItems = () => (
+const navigationItems = ({ isAuthenticated }) => (
   <NavigationItems>
     <NavigationItem link="/" exact>
       Burger Builder
     </NavigationItem>
     <NavigationItem link="/orders">Orders</NavigationItem>
-    <NavigationItem link="/auth">Authenticate</NavigationItem>
+    {!isAuthenticated ? (
+      <NavigationItem link="/auth">Authenticate</NavigationItem>
+    ) : (
+      <NavigationItem link="/logout">Logout</NavigationItem>
+    )}
   </NavigationItems>
 );
 

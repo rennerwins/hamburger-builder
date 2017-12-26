@@ -25,17 +25,17 @@ const SideDrawer = styled.div`
   }
 `;
 
-const sideDrawer = props => {
+const sideDrawer = ({ open, closed, isAuth }) => {
   return (
     <Wrapper>
-      <Backdrop show={props.open} clicked={props.closed} />
-      <SideDrawer show={props.open}>
+      <Backdrop show={open} clicked={closed} />
+      <SideDrawer show={open}>
         <div style={{ height: '11%', marginBottom: '32px' }}>
           <Logo />
         </div>
 
         <nav>
-          <NavigationItems />
+          <NavigationItems isAuthenticated={isAuth} />
         </nav>
       </SideDrawer>
     </Wrapper>

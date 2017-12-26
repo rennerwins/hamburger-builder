@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
-import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle'
+import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
 const Toolbar = styled.header`
   height: 56px;
@@ -28,14 +28,14 @@ const NavWrapper = styled.nav`
   }
 `;
 
-const toolbar = props => (
+const toolbar = ({ drawerToggleClicked, isAuth }) => (
   <Toolbar>
-    <DrawerToggle clicked={props.drawerToggleClicked} />
+    <DrawerToggle clicked={drawerToggleClicked} />
     <div style={{ height: '80%' }}>
       <Logo />
     </div>
     <NavWrapper>
-      <NavigationItems />
+      <NavigationItems isAuthenticated={isAuth} />
     </NavWrapper>
   </Toolbar>
 );
