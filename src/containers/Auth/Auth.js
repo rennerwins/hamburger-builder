@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
@@ -104,7 +105,7 @@ class Auth extends Component {
 
   render() {
     const { controls, isSignup } = this.state;
-    const { loading, error } = this.props;
+    const { loading, error, isAuthenticated } = this.props;
     const formElementsArray = [];
 
     for (let key in controls) {
@@ -137,8 +138,14 @@ class Auth extends Component {
       errorMessage = <p>{error.message}</p>;
     }
 
+    let authRedirect = null;
+    if (isAuthenticated) {
+      authRedirect = <Redirect to="/" />;
+    }
+
     return (
       <AuthWrapper>
+        {authRedirect}
         {errorMessage}
         <form onSubmit={this.submitHandler}>
           {form}
@@ -153,10 +160,11 @@ class Auth extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
-  const { loading, error } = auth;
+  const { loading, error, token } = auth;
   return {
     loading,
-    error
+    error,
+    isAuthenticated: token !== null
   };
 };
 
