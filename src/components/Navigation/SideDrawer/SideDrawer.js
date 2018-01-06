@@ -29,7 +29,7 @@ const sideDrawer = ({ open, closed, isAuth }) => {
   return (
     <Wrapper>
       <Backdrop show={open} clicked={closed} />
-      <SideDrawer show={open}>
+      <SideDrawer show={open} onClick={closed}>
         <div style={{ height: '11%', marginBottom: '32px' }}>
           <Logo />
         </div>
