@@ -1,13 +1,13 @@
+import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 
+import * as actions from '../../../store/actions/index';
 import axios from '../../../axios-orders';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
-import * as actions from '../../../store/actions/index';
 
 const ContactDataWrapper = styled.div`
   margin: 20px auto;
